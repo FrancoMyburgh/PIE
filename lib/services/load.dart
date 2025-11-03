@@ -30,7 +30,7 @@ class _LoadState extends State<Load> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     if(prefs.getBool('isLoggedIn') == null){
-      Navigator.push(context, MaterialPageRoute(builder: (context) {return SignUpPage();})); //TODO: Create and add Sign Up page
+      Navigator.push(context, MaterialPageRoute(builder: (context) {return SignUpPage();}));
     }else if(prefs.getBool('isLoggedIn') == true){
       if(prefs.getBool('sessionActive') == true){
         Navigator.push(context, MaterialPageRoute(builder: (context) {return TicketPage();}));
