@@ -1,0 +1,9 @@
+[submodule "PIE-API"]
+	path = PIE-API
+	url = https://github.com/FrancoMyburgh/PIE-API.git
+[submodule "PIE-Web"]
+	path = PIE-Web
+	url = https://github.com/FrancoMyburgh/PIE-Web.git
+[submodule "PIE-IoT"]
+	path = PIE-IoT
+	url = https://github.com/FrancoMyburgh/PIE-IoT.git
