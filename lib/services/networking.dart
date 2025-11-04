@@ -8,10 +8,12 @@ class NetworkingHelper{
 
   final String urlSuffix;
 
+  static const String APIkey = "7e7fe8897ec74c80b7151a3b347772933396ca9a56b80a061b1b4fec33e223ba";
+
   Future getData() async {
 
     var url = Uri.https('pieparking.co.za', urlSuffix);
-    var key = '7e7fe8897ec74c80b7151a3b347772933396ca9a56b80a061b1b4fec33e223ba';
+    var key = APIkey;
 
     http.Response response = await http.get(url, headers: {'Authorization' : 'Bearer $key'});
 
@@ -31,7 +33,7 @@ class NetworkingHelper{
     var url = Uri.https('pieparking.co.za', urlSuffix).replace(queryParameters: {
       'id': id,
     });
-    var key = '7e7fe8897ec74c80b7151a3b347772933396ca9a56b80a061b1b4fec33e223ba';
+    var key = APIkey;
 
     http.Response response = await http.get(url, headers: {'Authorization' : 'Bearer $key'});
 
@@ -51,7 +53,7 @@ class NetworkingHelper{
     var url = Uri.https('pieparking.co.za', urlSuffix).replace(queryParameters: {
       'userid': id,
     });
-    var key = '7e7fe8897ec74c80b7151a3b347772933396ca9a56b80a061b1b4fec33e223ba';
+    var key = APIkey;
 
     http.Response response = await http.get(url, headers: {'Authorization' : 'Bearer $key'});
 
@@ -69,7 +71,7 @@ class NetworkingHelper{
   Future postSignUpData(String firstname, String lastname, String username, String email, String password) async{
 
     var url = Uri.https('pieparking.co.za', urlSuffix);
-    var key = '7e7fe8897ec74c80b7151a3b347772933396ca9a56b80a061b1b4fec33e223ba';
+    var key = APIkey;
 
     String dataJson = jsonEncode(<String, String>{
       'firstname': firstname,
@@ -97,7 +99,7 @@ class NetworkingHelper{
     var url = Uri.https('pieparking.co.za', urlSuffix).replace(queryParameters: {
       'login': "true",
     });
-    var key = '7e7fe8897ec74c80b7151a3b347772933396ca9a56b80a061b1b4fec33e223ba';
+    var key = APIkey;
 
     String dataJson = jsonEncode(<String, String>{
       'username': username,
@@ -117,13 +119,41 @@ class NetworkingHelper{
 
   }
 
+  Future putAccountData(String userId, String firstname, String lastname, String username, String email, String password) async{
+
+    var url = Uri.https('pieparking.co.za', urlSuffix).replace(queryParameters: {
+      'id': userId,
+    });
+    var key = APIkey;
+
+    String dataJson = jsonEncode(<String, String>{
+      'firstname': firstname,
+      'lastname': lastname,
+      'username': username,
+      'email': email,
+      'password': password,
+    });
+
+    http.Response response = await http.put(url, headers: {'Authorization' : 'Bearer $key'}, body: dataJson);
+
+    if(response.statusCode == 200){
+      String data = response.body;
+
+      return jsonDecode(data);
+
+    }else{
+      print(response.statusCode);
+    }
+
+  }
+
   Future putGateOpen(String gateId) async{
 
     var url = Uri.https('pieparking.co.za', urlSuffix).replace(queryParameters: {
       'id': gateId,
       'open': "true",
     });
-    var key = '7e7fe8897ec74c80b7151a3b347772933396ca9a56b80a061b1b4fec33e223ba';
+    var key = APIkey;
 
     http.Response response = await http.put(url, headers: {'Authorization' : 'Bearer $key'});
 
@@ -141,7 +171,7 @@ class NetworkingHelper{
   Future postCreateSession(String userId, String locationId) async{
 
     var url = Uri.https('pieparking.co.za', urlSuffix);
-    var key = '7e7fe8897ec74c80b7151a3b347772933396ca9a56b80a061b1b4fec33e223ba';
+    var key = APIkey;
 
     String dataJson = jsonEncode(<String, String>{
       'userId': userId,
@@ -167,7 +197,7 @@ class NetworkingHelper{
       'id': sessionId,
       'paid': "true",
     });
-    var key = '7e7fe8897ec74c80b7151a3b347772933396ca9a56b80a061b1b4fec33e223ba';
+    var key = APIkey;
 
     final now = DateTime.now();
     final formattedDate = DateFormat("yyyy-MM-dd HH:mm:ss").format(now);
@@ -195,7 +225,7 @@ class NetworkingHelper{
       'id': sessionId,
       'exit': "true",
     });
-    var key = '7e7fe8897ec74c80b7151a3b347772933396ca9a56b80a061b1b4fec33e223ba';
+    var key = APIkey;
 
     final now = DateTime.now();
     final formattedDate = DateFormat("yyyy-MM-dd HH:mm:ss").format(now);
@@ -220,7 +250,7 @@ class NetworkingHelper{
   Future postCreateTransaction(String gatewayId, String amount, String sessionId, String userId, String locationId) async{
 
     var url = Uri.https('pieparking.co.za', urlSuffix);
-    var key = '7e7fe8897ec74c80b7151a3b347772933396ca9a56b80a061b1b4fec33e223ba';
+    var key = APIkey;
 
     String dataJson = jsonEncode(<String, String>{
       'gatewayId': gatewayId,
@@ -249,7 +279,7 @@ class NetworkingHelper{
       'id': transactionId,
       'payment': 'complete',
     });
-    var key = '7e7fe8897ec74c80b7151a3b347772933396ca9a56b80a061b1b4fec33e223ba';
+    var key = APIkey;
 
     String dataJson = jsonEncode(<String, String>{
       'gatewayId': uuid,

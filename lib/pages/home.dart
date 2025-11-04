@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pie/pages/account.dart';
 import 'package:pie/pages/qr_scan.dart';
 import 'package:pie/resources/style_constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -117,7 +118,7 @@ class _HomePageState extends State<HomePage> {
                   PopupMenuItem(
                     value: "account",
                     onTap: (){
-                      Navigator.of(context).pushNamed('/account');
+                      Navigator.push(context, MaterialPageRoute(builder: (context) {return AccountPage();}));
                     },
                     child: Text("Account"),
                   ),

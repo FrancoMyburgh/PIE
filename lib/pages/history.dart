@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pie/pages/account.dart';
 import 'package:pie/pages/home.dart';
 import 'package:pie/resources/style_constants.dart';
 import 'package:pie/services/networking.dart';
@@ -146,7 +147,7 @@ class _HistoryPageState extends State<HistoryPage> {
                 PopupMenuItem(
                   value: "account",
                   onTap: (){
-                    Navigator.of(context).pushNamed('/account');
+                    Navigator.push(context, MaterialPageRoute(builder: (context) {return AccountPage();}));
                   },
                   child: Text("Account"),
                 ),

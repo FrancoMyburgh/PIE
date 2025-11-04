@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:pie/pages/account.dart';
+import 'package:pie/pages/history.dart';
 import 'package:pie/pages/home.dart';
 import 'package:pie/pages/payment.dart';
 import 'package:pie/pages/ticket.dart';
@@ -36,7 +38,7 @@ class _QrScanPageState extends State<QrScanPage> {
         .connectivityStreamController
         .stream
         .listen((event) {
-      print(event);
+
       if (event == InternetStatus.disconnected) {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
           return HomePage();
@@ -192,21 +194,21 @@ class _QrScanPageState extends State<QrScanPage> {
               PopupMenuItem(
                 value: "home",
                 onTap: (){
-                  Navigator.of(context).pushNamed('/home');
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {return HomePage();}));
                 },
-                child: Text("History"),
+                child: Text("Home"),
               ),
               PopupMenuItem(
                 value: "account",
                 onTap: (){
-                  Navigator.of(context).pushNamed('/account');
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {return AccountPage();}));
                 },
                 child: Text("Account"),
               ),
               PopupMenuItem(
                 value: "history",
                 onTap: (){
-                  Navigator.of(context).pushNamed('/history');
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {return HistoryPage();}));
                 },
                 child: Text("History"),
               ),

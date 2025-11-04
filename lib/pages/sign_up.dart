@@ -264,6 +264,18 @@ class _SignUpPageState extends State<SignUpPage> {
                             child: const Text('Sign Up'),
                           ),
                         ),
+                        GestureDetector(
+                          onTap: (){
+
+                          },
+                          child: Text(
+                            "Sign In",
+                            style: TextStyle(
+                              color: kPiePurple,
+
+                            ),
+                          ),
+                        )
                       ],
                     ),
                   ),
