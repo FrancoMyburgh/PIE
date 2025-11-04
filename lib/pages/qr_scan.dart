@@ -8,6 +8,8 @@ import 'package:pie/services/networking.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:pie/pages/sign_in.dart';
 import 'package:intl/intl.dart';
+import 'package:pie/services/network_check.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 class QrScanPage extends StatefulWidget {
   const QrScanPage({super.key});
@@ -27,6 +29,22 @@ class _QrScanPageState extends State<QrScanPage> {
         return SignInPage();
       }));
     }
+  }
+
+  void isConnected(){
+    DataConnectivityService()
+        .connectivityStreamController
+        .stream
+        .listen((event) {
+      print(event);
+      if (event == InternetStatus.disconnected) {
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return HomePage();
+        }));
+      } else {
+        return;
+      }
+    });
   }
 
   String errorMessage = "";
@@ -134,6 +152,13 @@ class _QrScanPageState extends State<QrScanPage> {
       });
     }
 
+  }
+
+  @override
+  void initState() {
+    isConnected();
+    isLoggedIn();
+    super.initState();
   }
 
   @override
