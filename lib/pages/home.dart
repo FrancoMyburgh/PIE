@@ -4,6 +4,7 @@ import 'package:pie/resources/style_constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:pie/pages/history.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -123,7 +124,7 @@ class _HomePageState extends State<HomePage> {
                   PopupMenuItem(
                     value: "history",
                     onTap: (){
-                      Navigator.of(context).pushNamed('/history');
+                      Navigator.push(context, MaterialPageRoute(builder: (context) {return HistoryPage();}));
                     },
                     child: Text("History"),
                   ),

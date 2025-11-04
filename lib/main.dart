@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
+import 'package:pie/pages/history.dart';
 import 'package:pie/resources/style_constants.dart';
 import 'package:pie/pages/payment.dart';
 import 'package:pie/pages/ticket.dart';
@@ -58,6 +59,7 @@ class _RunAppState extends State<RunApp> {
           '/qr_scan': (context) => QrScanPage(),
           '/ticket': (context) => TicketPage(),
           '/payment': (context) => PaymentPage(),
+          '/history': (context) => HistoryPage(),
         },
         theme: ThemeData(
             fontFamily: "Poppins",

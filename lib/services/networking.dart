@@ -46,6 +46,26 @@ class NetworkingHelper{
 
   }
 
+  Future getTransactionsFromUserId(String id) async {
+
+    var url = Uri.https('pieparking.co.za', urlSuffix).replace(queryParameters: {
+      'userid': id,
+    });
+    var key = '7e7fe8897ec74c80b7151a3b347772933396ca9a56b80a061b1b4fec33e223ba';
+
+    http.Response response = await http.get(url, headers: {'Authorization' : 'Bearer $key'});
+
+    if(response.statusCode == 200){
+      String data = response.body;
+
+      return jsonDecode(data);
+
+    }else{
+      print(response.statusCode);
+    }
+
+  }
+
   Future postSignUpData(String firstname, String lastname, String username, String email, String password) async{
 
     var url = Uri.https('pieparking.co.za', urlSuffix);
