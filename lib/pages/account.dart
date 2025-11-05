@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pie/pages/history.dart';
 import 'package:pie/pages/home.dart';
+import 'package:pie/pages/ticket.dart';
 import 'package:pie/resources/style_constants.dart';
 import 'package:pie/services/networking.dart';
 import 'package:crypto/crypto.dart';
@@ -34,6 +35,16 @@ class _AccountPageState extends State<AccountPage> {
   late final TextEditingController _emailController = TextEditingController();
   late final TextEditingController _passwordController = TextEditingController();
   late final TextEditingController _repeatPasswordController = TextEditingController();
+
+  bool sessionActive = false;
+
+  void getSessionActive() async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    setState(() {
+      sessionActive = prefs.getBool('sessionActive') ?? false;
+    });
+  }
 
   Future<void> getCurrentInfo() async{
 
@@ -133,7 +144,11 @@ class _AccountPageState extends State<AccountPage> {
                 PopupMenuItem(
                   value: "home",
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) {return HomePage();}));
+                    if(sessionActive){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) {return TicketPage();}));
+                    }else{
+                      Navigator.push(context, MaterialPageRoute(builder: (context) {return HomePage();}));
+                    }
                   },
                   child: Text("Home"),
                 ),

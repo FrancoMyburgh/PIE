@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pie/pages/account.dart';
 import 'package:pie/pages/home.dart';
+import 'package:pie/pages/ticket.dart';
 import 'package:pie/resources/style_constants.dart';
 import 'package:pie/services/networking.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,6 +14,16 @@ class HistoryPage extends StatefulWidget {
 }
 
 class _HistoryPageState extends State<HistoryPage> {
+
+  bool sessionActive = false;
+
+  void getSessionActive() async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    setState(() {
+      sessionActive = prefs.getBool('sessionActive') ?? false;
+    });
+  }
 
   List<Widget> transactionWidgets = [];
 
@@ -138,9 +149,13 @@ class _HistoryPageState extends State<HistoryPage> {
               ),
               itemBuilder: (context) => [
                 PopupMenuItem(
-                  value: "home",
+                  value: sessionActive ? "ticket" : "home",
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) {return HomePage();}));
+                    if(sessionActive){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) {return TicketPage();}));
+                    }else{
+                      Navigator.push(context, MaterialPageRoute(builder: (context) {return HomePage();}));
+                    }
                   },
                   child: Text("Home"),
                 ),
