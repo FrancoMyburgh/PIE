@@ -200,7 +200,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
                               if (value == null || value.isEmpty) {
                                 return 'Please enter an email address';
-                              }else if(!RegExp(r'^([A-z0-9]+)(@)([A-z]+)(\.)([A-z\.]+)$').hasMatch(value)){
+                              }else if(!RegExp(r'^([A-z0-9\.]+)(@)([A-z]+)(\.)([A-z\.]+)$').hasMatch(value)){
                                 return 'Invalid email address';
                               }else {
                                 return null;
