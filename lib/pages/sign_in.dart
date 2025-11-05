@@ -159,8 +159,8 @@ class _SignInPageState extends State<SignInPage> {
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Please enter some text';
-                                  }else if(!RegExp(r'(?=.*[!@#$%^&*])(?=.*[0-9])(?=.*[A-Z])[A-z0-9!@#$%^&*]{8,}$').hasMatch(value)){
-                                    return 'Invalid password';
+                                  // }else if(!RegExp(r'(?=.*[!@#$%^&*])(?=.*[0-9])(?=.*[A-Z])[A-z0-9!@#$%^&*]{8,}$').hasMatch(value)){
+                                  //   return 'Invalid password';
                                   }
                                   return null;
                                 },

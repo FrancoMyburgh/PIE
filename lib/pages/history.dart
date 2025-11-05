@@ -126,6 +126,7 @@ class _HistoryPageState extends State<HistoryPage> {
   @override
   void initState() {
     buildTransactions();
+    getSessionActive();
     super.initState();
   }
 

@@ -1,5 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:pie/pages/account.dart';
+import 'package:pie/pages/history.dart';
 import 'package:pie/pages/payment.dart';
 import 'package:pie/resources/style_constants.dart';
 import 'package:pie/services/networking.dart';
@@ -124,14 +126,14 @@ class _TicketPageState extends State<TicketPage> {
                 PopupMenuItem(
                   value: "account",
                   onTap: (){
-                    Navigator.of(context).pushNamed('/account');
+                    Navigator.push(context, MaterialPageRoute(builder: (context) {return AccountPage();}));
                   },
                   child: Text("Account"),
                 ),
                 PopupMenuItem(
                   value: "history",
                   onTap: (){
-                    Navigator.of(context).pushNamed('/history');
+                    Navigator.push(context, MaterialPageRoute(builder: (context) {return HistoryPage();}));
                   },
                   child: Text("History"),
                 ),

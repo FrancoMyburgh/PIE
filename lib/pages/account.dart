@@ -118,6 +118,7 @@ class _AccountPageState extends State<AccountPage> {
       _usernameController.text = username;
       _emailController.text = email;
     });
+    getSessionActive();
     super.initState();
   }
 

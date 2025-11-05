@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pie/pages/sign_in.dart';
 import 'package:pie/resources/style_constants.dart';
 import 'package:crypto/crypto.dart';
 import 'dart:convert';
@@ -261,18 +262,28 @@ class _SignUpPageState extends State<SignUpPage> {
                                 signUp(_nameController.text, _surnameController.text, _usernameController.text, _emailController.text, _passwordController.text);
                               }
                             },
-                            child: const Text('Sign Up'),
+                            child: const Text(
+                              'Sign Up',
+                              style: TextStyle(
+                                fontSize: 20.0,
+                              ),
+                            ),
                           ),
                         ),
+                        SizedBox(height: 10.0,),
                         GestureDetector(
                           onTap: (){
-
+                            Navigator.push(context, MaterialPageRoute(builder: (context) {
+                              return SignInPage();
+                            }));
                           },
                           child: Text(
                             "Sign In",
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                               color: kPiePurple,
-
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.w800,
                             ),
                           ),
                         )
