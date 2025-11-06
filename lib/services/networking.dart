@@ -299,4 +299,24 @@ class NetworkingHelper{
 
   }
 
+  Future deleteAccount(String userId) async{
+
+    var url = Uri.https('pieparking.co.za', urlSuffix).replace(queryParameters: {
+      'id': userId,
+    });
+    var key = APIkey;
+
+    http.Response response = await http.delete(url, headers: {'Authorization' : 'Bearer $key'});
+
+    if(response.statusCode == 200){
+      String data = response.body;
+
+      return jsonDecode(data);
+
+    }else{
+      print(response.statusCode);
+    }
+
+  }
+
 }

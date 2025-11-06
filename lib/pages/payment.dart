@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:payfast/payfast.dart';
 import 'package:pie/pages/home.dart';
+import 'package:pie/pages/sign_in.dart';
 import 'package:pie/resources/style_constants.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:pie/services/networking.dart';
@@ -145,8 +146,17 @@ class _PaymentPageState extends State<PaymentPage> {
     print('payment cancelled');
   }
 
+  void isLoggedIn() async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    if(prefs.getBool('isLoggedIn') == null || prefs.getBool('isLoggedIn') == false){
+      Navigator.push(context, MaterialPageRoute(builder: (context) {return SignInPage();}));
+    }
+  }
+
   @override
   void initState() {
+    isLoggedIn();
     getPaymentInfo();
     createPayment();
     super.initState();
@@ -157,15 +167,11 @@ class _PaymentPageState extends State<PaymentPage> {
     return Material(
       child: Scaffold(
         appBar: AppBar(
-          leading: IconButton(
-            onPressed: (){
-              Navigator.pop(context);
-            },
-            icon: Icon(
-              Icons.arrow_back,
-              color: kPieWhite,
-            ),
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: Image.asset("images/PIE Parking Icon.png"),
           ),
+          leadingWidth: 50,
           shadowColor: Colors.black,
           elevation: 4,
           scrolledUnderElevation: 6,

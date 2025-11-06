@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pie/pages/account.dart';
 import 'package:pie/pages/qr_scan.dart';
+import 'package:pie/pages/sign_in.dart';
+import 'package:pie/pages/ticket.dart';
 import 'package:pie/resources/style_constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -90,8 +92,32 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  void isLoggedIn() async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    if(prefs.getBool('isLoggedIn') == null || prefs.getBool('isLoggedIn') == false){
+      Navigator.push(context, MaterialPageRoute(builder: (context) {return SignInPage();}));
+    }
+  }
+
+  void isSessionActive() async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    if(prefs.getBool('sessionActive') == true){
+      if(prefs.getBool('sessionPaid') == true){
+        return;
+      }else {
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return TicketPage();
+        }));
+      }
+    }
+  }
+
   @override
   void initState() {
+    isLoggedIn();
+    isSessionActive();
     getContext();
     super.initState();
   }

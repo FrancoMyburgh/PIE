@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pie/pages/account.dart';
 import 'package:pie/pages/history.dart';
 import 'package:pie/pages/payment.dart';
+import 'package:pie/pages/sign_in.dart';
 import 'package:pie/resources/style_constants.dart';
 import 'package:pie/services/networking.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -97,8 +98,17 @@ class _TicketPageState extends State<TicketPage> {
 
   }
 
+  void isLoggedIn() async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    if(prefs.getBool('isLoggedIn') == null || prefs.getBool('isLoggedIn') == false){
+      Navigator.push(context, MaterialPageRoute(builder: (context) {return SignInPage();}));
+    }
+  }
+
   @override
   void initState() {
+    isLoggedIn();
     isTicketPaid();
     getTicketInfo();
     super.initState();

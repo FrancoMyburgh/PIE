@@ -33,7 +33,6 @@ class _RunAppState extends State<RunApp> {
         .connectivityStreamController
         .stream
         .listen((event) {
-      print(event);
       if (event == InternetStatus.disconnected) {
         entry = showOverlayNotification((context) {
           return NetworkErrorAnimation();
