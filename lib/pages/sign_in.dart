@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:pie/pages/sign_up.dart';
 import 'package:pie/resources/style_constants.dart';
 import 'package:pie/services/networking.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -188,7 +189,7 @@ class _SignInPageState extends State<SignInPage> {
                             GestureDetector(
                               onTap: (){
                                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                  return SignInPage();
+                                  return SignUpPage();
                                 }));
                               },
                               child: Text(
