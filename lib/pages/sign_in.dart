@@ -61,21 +61,6 @@ class _SignInPageState extends State<SignInPage> {
     return MaterialApp(
       home: Scaffold(
         backgroundColor: kPieNavy,
-        appBar: AppBar(
-            leading: IconButton(
-              onPressed: (){
-                Navigator.pop(context);
-              },
-              icon: Icon(
-                  Icons.arrow_back,
-                  color: kPieWhite,
-              ),
-            ),
-            shadowColor: Colors.black,
-            elevation: 4,
-            scrolledUnderElevation: 6,
-            backgroundColor: kPieNavy,
-        ),
         body: SafeArea(
           child: Container(
             decoration: BoxDecoration(
@@ -159,8 +144,8 @@ class _SignInPageState extends State<SignInPage> {
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Please enter some text';
-                                  // }else if(!RegExp(r'(?=.*[!@#$%^&*])(?=.*[0-9])(?=.*[A-Z])[A-z0-9!@#$%^&*]{8,}$').hasMatch(value)){
-                                  //   return 'Invalid password';
+                                  }else if(!RegExp(r'(?=.*[!@#$%^&*])(?=.*[0-9])(?=.*[A-Z])[A-z0-9!@#$%^&*]{8,}$').hasMatch(value)){
+                                    return 'Invalid password';
                                   }
                                   return null;
                                 },
@@ -191,9 +176,31 @@ class _SignInPageState extends State<SignInPage> {
                                     login(_usernameController.text, _passwordController.text);
                                   }
                                 },
-                                child: Text('Log In'),
+                                child: Text(
+                                  'Log In',
+                                  style: TextStyle(
+                                    fontSize: 20.0,
+                                  ),
+                                ),
                               ),
                             ),
+                            SizedBox(height: 10.0,),
+                            GestureDetector(
+                              onTap: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                                  return SignInPage();
+                                }));
+                              },
+                              child: Text(
+                                "No Account? Sign Up",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: kPiePurple,
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.w800,
+                                ),
+                              ),
+                            )
                           ],
                         ),
                       ),

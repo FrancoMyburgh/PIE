@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pie/pages/history.dart';
 import 'package:pie/pages/home.dart';
+import 'package:pie/pages/sign_in.dart';
 import 'package:pie/pages/ticket.dart';
 import 'package:pie/resources/style_constants.dart';
 import 'package:pie/services/networking.dart';
@@ -44,6 +45,14 @@ class _AccountPageState extends State<AccountPage> {
     setState(() {
       sessionActive = prefs.getBool('sessionActive') ?? false;
     });
+  }
+
+  void isLoggedIn() async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    if(prefs.getBool('isLoggedIn') == null || prefs.getBool('isLoggedIn') == false){
+      Navigator.push(context, MaterialPageRoute(builder: (context) {return SignInPage();}));
+    }
   }
 
   Future<void> getCurrentInfo() async{
@@ -95,16 +104,84 @@ class _AccountPageState extends State<AccountPage> {
 
   }
 
-  void showMySnackBar(String message, Color color) {
+  void showDeleteSnackBar() {
     final snackBar = SnackBar(
-      content: Text(
-        message,
-        style: TextStyle(
-          color: color,
+      content: Container(
+        padding: EdgeInsets.all(8.0),
+        decoration: BoxDecoration(
+          border: Border.all(color: Color(0xFFB30F0F), width: 2.0,),
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        child: Text(
+          "Are you sure you want to Delete your Account Permanently?",
+          style: TextStyle(
+            color: Color(0xFFB30F0F),
+          ),
         ),
       ),
-      duration: const Duration(seconds: 3), // Optional: Set duration
+      action: SnackBarAction(
+        label: 'DELETE',
+        backgroundColor: Color(0xFFC34343),
+        textColor: kPieWhite,
+        onPressed: () {
+          deleteAccount();
+          ScaffoldMessenger.of(context).hideCurrentSnackBar(); // Explicitly dismiss
+        },
+      ),
+      showCloseIcon: true,
+      duration: Duration(days: 365),
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: kPieWhite,
+    );
+    snackbarKey.currentState?.showSnackBar(snackBar);
+  }
+
+  void deleteAccount() async{
+
+    NetworkingHelper networkingHelper = NetworkingHelper(urlSuffix: "api/user");
+
+    var response = await networkingHelper.deleteAccount(userId);
+
+    if(response['status'] == 1) {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+      prefs.remove('isLoggedIn');
+      prefs.remove('userId');
+      prefs.remove('loginDate');
+
+      Navigator.push(context, MaterialPageRoute(builder: (context) {return SignInPage();}));
+    }
+
+  }
+
+  void logOut() async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    prefs.remove('isLoggedIn');
+    prefs.remove('userId');
+    prefs.remove('loginDate');
+
+    Navigator.push(context, MaterialPageRoute(builder: (context) {return SignInPage();}));
+  }
+
+  void showMySnackBar(String message, Color color) {
+    final snackBar = SnackBar(
+      content: Container(
+        padding: EdgeInsets.all(8.0),
+        decoration: BoxDecoration(
+          border: Border.all(color: color, width: 2.0,),
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        child: Text(
+          message,
+          style: TextStyle(
+            color: color,
+          ),
+        ),
+      ),
+      duration: const Duration(seconds: 5), // Optional: Set duration
       behavior: SnackBarBehavior.floating, // Optional: Set behavior
+      backgroundColor: kPieWhite,
     );
     snackbarKey.currentState?.showSnackBar(snackBar);
   }
@@ -112,6 +189,7 @@ class _AccountPageState extends State<AccountPage> {
 
   @override
   void initState() {
+    isLoggedIn();
     getCurrentInfo().then((_) {
       _nameController.text = firstname;
       _surnameController.text = lastname;
@@ -159,6 +237,17 @@ class _AccountPageState extends State<AccountPage> {
                     Navigator.push(context, MaterialPageRoute(builder: (context) {return HistoryPage();}));
                   },
                   child: Text("History"),
+                ),
+                PopupMenuItem(
+                  value: "logout",
+                  onTap: (){
+                    if(sessionActive){
+                      showMySnackBar("Unable to log out: You have an active session.", Color(0xFFB30F0F));
+                    }else{
+                      logOut();
+                    }
+                  },
+                  child: Text("Log Out"),
                 ),
               ],
               onSelected: (String newValue){
@@ -370,7 +459,37 @@ class _AccountPageState extends State<AccountPage> {
                                         );
                                       }
                                     },
-                                    child: const Text('Confirm Changes'),
+                                    child: const Text(
+                                      'Confirm Changes',
+                                      style: TextStyle(
+                                        fontSize: 20.0,
+                                        fontFamily: "Poppins",
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 5.0,),
+                                Container(
+                                  margin: EdgeInsets.only(top: 8.0),
+                                  child: ElevatedButton(
+                                    style: ButtonStyle(
+                                      backgroundColor: WidgetStatePropertyAll<Color>(Color(0xFFC34343)),
+                                      foregroundColor: WidgetStatePropertyAll<Color>(kPieWhite),
+                                    ),
+                                    onPressed: () {
+                                      if(sessionActive){
+                                        showMySnackBar("You have an active session. Please close session first by paying and exiting parking.", Color(0xFFB30F0F));
+                                      }else{
+                                        showDeleteSnackBar();
+                                      }
+                                    },
+                                    child: const Text(
+                                      'Delete Account',
+                                      style: TextStyle(
+                                        fontSize: 20.0,
+                                        fontFamily: "Poppins ExtraLight",
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ],

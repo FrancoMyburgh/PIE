@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pie/pages/account.dart';
 import 'package:pie/pages/home.dart';
+import 'package:pie/pages/sign_in.dart';
 import 'package:pie/pages/ticket.dart';
 import 'package:pie/resources/style_constants.dart';
 import 'package:pie/services/networking.dart';
@@ -123,8 +124,17 @@ class _HistoryPageState extends State<HistoryPage> {
     }
   }
 
+  void isLoggedIn() async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    if(prefs.getBool('isLoggedIn') == null || prefs.getBool('isLoggedIn') == false){
+      Navigator.push(context, MaterialPageRoute(builder: (context) {return SignInPage();}));
+    }
+  }
+
   @override
   void initState() {
+    isLoggedIn();
     buildTransactions();
     getSessionActive();
     super.initState();
