@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:pie/pages/history.dart';
 import 'package:pie/resources/style_constants.dart';
@@ -12,8 +13,11 @@ import 'package:pie/pages/qr_scan.dart';
 import 'package:pie/services/network_check.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:pie/resources/network_error_widget.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
   runApp(const RunApp());
 }
 

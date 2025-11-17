@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class NetworkingHelper{
 
@@ -8,7 +9,7 @@ class NetworkingHelper{
 
   final String urlSuffix;
 
-  static const String APIkey = "7e7fe8897ec74c80b7151a3b347772933396ca9a56b80a061b1b4fec33e223ba";
+  final String APIkey = dotenv.env['API_KEY'] ?? "0";
 
   Future getData() async {
 
