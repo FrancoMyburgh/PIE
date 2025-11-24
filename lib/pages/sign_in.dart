@@ -63,146 +63,148 @@ class _SignInPageState extends State<SignInPage> {
       home: Scaffold(
         backgroundColor: kPieNavy,
         body: SafeArea(
-          child: Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("images/PIE Background.png"), // Path to your image
-                fit: BoxFit.cover, // Adjust how the image fits the container
+          child: SingleChildScrollView(
+            child: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("images/PIE Background.png"), // Path to your image
+                  fit: BoxFit.cover, // Adjust how the image fits the container
+                ),
               ),
-            ),
-            child: Center(
-              child: Padding(
-                padding: EdgeInsets.all(50.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: kPieWhite,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                        color: kShadowColor,
-                      )
-                    ],
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Form(
-                      key: _formKey,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: <Widget>[
-                            Text(
-                              "Log In",
-                              style: kPieHeadingStyle,
-                            ),
-                            Text(
-                              errorMessage,
-                              style: TextStyle(
-                                color: Color(0xFFFF0000),
-                                fontSize: 14.0,
-                                fontFamily: "Poppins ExtraLight",
+              child: Center(
+                child: Padding(
+                  padding: EdgeInsets.all(50.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: kPieWhite,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: kShadowColor,
+                        )
+                      ],
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Form(
+                        key: _formKey,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: <Widget>[
+                              Text(
+                                "Log In",
+                                style: kPieHeadingStyle,
                               ),
-                            ),
-                            // Add TextFormFields and ElevatedButton here.
-                            Container(
-                              margin: EdgeInsets.only(top: 8.0),
-                              child: TextFormField(
-                                controller: _usernameController,
-                                decoration: InputDecoration(
-                                  labelText: 'Enter your username',
-                                  hintText: 'e.g., JoePrice24',
-                                  border: OutlineInputBorder(),
+                              Text(
+                                errorMessage,
+                                style: TextStyle(
+                                  color: Color(0xFFFF0000),
+                                  fontSize: 14.0,
+                                  fontFamily: "Poppins ExtraLight",
                                 ),
-                                keyboardType: TextInputType.text,
-                                // The validator receives the text that the user has entered.
-                                validator: (value) {
-
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter a username';
-                                  }else if(!RegExp(r'^[A-z0-9-\.]*$').hasMatch(value)){
-                                    return 'Please enter a valid username';
-                                  }else {
+                              ),
+                              // Add TextFormFields and ElevatedButton here.
+                              Container(
+                                margin: EdgeInsets.only(top: 8.0),
+                                child: TextFormField(
+                                  controller: _usernameController,
+                                  decoration: InputDecoration(
+                                    labelText: 'Enter your username',
+                                    hintText: 'e.g., JoePrice24',
+                                    border: OutlineInputBorder(),
+                                  ),
+                                  keyboardType: TextInputType.text,
+                                  // The validator receives the text that the user has entered.
+                                  validator: (value) {
+            
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter a username';
+                                    }else if(!RegExp(r'^[A-z0-9-\.]*$').hasMatch(value)){
+                                      return 'Please enter a valid username';
+                                    }else {
+                                      return null;
+                                    }
+                                  },
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(top: 8.0),
+                                child: TextFormField(
+                                  controller: _passwordController,
+                                  decoration: InputDecoration(
+                                    labelText: 'Enter your password',
+                                    hintText: 'Password',
+                                    border: OutlineInputBorder(),
+                                  ),
+                                  obscureText: true,
+                                  keyboardType: TextInputType.visiblePassword,
+                                  // The validator receives the text that the user has entered.
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter some text';
+                                    }else if(!RegExp(r'(?=.*[!@#$%^&*])(?=.*[0-9])(?=.*[A-Z])[A-z0-9!@#$%^&*]{8,}$').hasMatch(value)){
+                                      return 'Invalid password';
+                                    }
                                     return null;
-                                  }
-                                },
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(top: 8.0),
-                              child: TextFormField(
-                                controller: _passwordController,
-                                decoration: InputDecoration(
-                                  labelText: 'Enter your password',
-                                  hintText: 'Password',
-                                  border: OutlineInputBorder(),
+                                  },
                                 ),
-                                obscureText: true,
-                                keyboardType: TextInputType.visiblePassword,
-                                // The validator receives the text that the user has entered.
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter some text';
-                                  }else if(!RegExp(r'(?=.*[!@#$%^&*])(?=.*[0-9])(?=.*[A-Z])[A-z0-9!@#$%^&*]{8,}$').hasMatch(value)){
-                                    return 'Invalid password';
-                                  }
-                                  return null;
-                                },
                               ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(top: 8.0),
-                              child: ElevatedButton(
-                                style: kPieElevatedButtonStyle,
-                                onPressed: () {
-                                  // Validate returns true if the form is valid, or false otherwise.
-                                  if (_formKey.currentState!.validate()) {
-                                    // If the form is valid, display a snackbar. In the real world,
-                                    // you'd often call a server or save the information in a database.
-                                    // ScaffoldMessenger.of(context).showSnackBar(
-                                    //   const SnackBar(
-                                    //     content: Center(
-                                    //       child: Text(
-                                    //         'Success!',
-                                    //         style: TextStyle(
-                                    //           color: kDegasityWhite,
-                                    //         ),
-                                    //       ),
-                                    //     ),
-                                    //     backgroundColor: Colors.green,
-                                    //   ),
-                                    // );
-                                    login(_usernameController.text, _passwordController.text);
-                                  }
-                                },
-                                child: Text(
-                                  'Log In',
-                                  style: TextStyle(
-                                    fontSize: 20.0,
+                              Container(
+                                margin: EdgeInsets.only(top: 8.0),
+                                child: ElevatedButton(
+                                  style: kPieElevatedButtonStyle,
+                                  onPressed: () {
+                                    // Validate returns true if the form is valid, or false otherwise.
+                                    if (_formKey.currentState!.validate()) {
+                                      // If the form is valid, display a snackbar. In the real world,
+                                      // you'd often call a server or save the information in a database.
+                                      // ScaffoldMessenger.of(context).showSnackBar(
+                                      //   const SnackBar(
+                                      //     content: Center(
+                                      //       child: Text(
+                                      //         'Success!',
+                                      //         style: TextStyle(
+                                      //           color: kDegasityWhite,
+                                      //         ),
+                                      //       ),
+                                      //     ),
+                                      //     backgroundColor: Colors.green,
+                                      //   ),
+                                      // );
+                                      login(_usernameController.text, _passwordController.text);
+                                    }
+                                  },
+                                  child: Text(
+                                    'Log In',
+                                    style: TextStyle(
+                                      fontSize: 20.0,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            SizedBox(height: 10.0,),
-                            GestureDetector(
-                              onTap: (){
-                                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                  return SignUpPage();
-                                }));
-                              },
-                              child: Text(
-                                "No Account? Sign Up",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: kPiePurple,
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.w800,
+                              SizedBox(height: 10.0,),
+                              GestureDetector(
+                                onTap: (){
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                                    return SignUpPage();
+                                  }));
+                                },
+                                child: Text(
+                                  "No Account? Sign Up",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: kPiePurple,
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.w800,
+                                  ),
                                 ),
-                              ),
-                            )
-                          ],
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:pie/resources/style_constants.dart';
 
 class NetworkErrorAnimation extends StatefulWidget {
+  const NetworkErrorAnimation({super.key});
+
   @override
   _NetworkErrorAnimationState createState() => _NetworkErrorAnimationState();
 }
@@ -12,7 +14,7 @@ class _NetworkErrorAnimationState extends State<NetworkErrorAnimation> {
   @override
   Widget build(BuildContext context) {
     return AbsorbPointer(
-      child: Container(
+      child: SizedBox(
         height: MediaQuery.sizeOf(context).height,
         width: MediaQuery.sizeOf(context).width,
         child: Center(

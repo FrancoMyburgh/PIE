@@ -13,7 +13,6 @@ import 'package:pie/pages/qr_scan.dart';
 import 'package:pie/services/network_check.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:pie/resources/network_error_widget.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();

@@ -283,7 +283,7 @@ class _PaymentPageState extends State<PaymentPage> {
             ),
             payButtonStyle: kPieElevatedButtonStyle,
               waitingOverlayWidget: Center(
-                child: Container(
+                child: SizedBox(
                   height: 400,
                   width: double.infinity,
                   child: Center(
