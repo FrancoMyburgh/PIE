@@ -194,9 +194,10 @@ class _HomePageState extends State<HomePage> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Image.asset(
-                              "images/qr_scanner_icon.png",
-                              height: 200.0,
+                            Expanded(
+                              child: Image.asset(
+                                "images/qr_scanner_icon.png",
+                              ),
                             ),
                             Text(
                               "SCAN TO $contextWord",
