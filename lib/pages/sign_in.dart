@@ -63,15 +63,15 @@ class _SignInPageState extends State<SignInPage> {
       home: Scaffold(
         backgroundColor: kPieNavy,
         body: SafeArea(
-          child: SingleChildScrollView(
-            child: Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("images/PIE Background.png"), // Path to your image
-                  fit: BoxFit.cover, // Adjust how the image fits the container
-                ),
+          child: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("images/PIE Background.png"), // Path to your image
+                fit: BoxFit.cover, // Adjust how the image fits the container
               ),
-              child: Center(
+            ),
+            child: Center(
+              child: SingleChildScrollView(
                 child: Padding(
                   padding: EdgeInsets.all(50.0),
                   child: Container(
@@ -120,7 +120,7 @@ class _SignInPageState extends State<SignInPage> {
                                   keyboardType: TextInputType.text,
                                   // The validator receives the text that the user has entered.
                                   validator: (value) {
-            
+
                                     if (value == null || value.isEmpty) {
                                       return 'Please enter a username';
                                     }else if(!RegExp(r'^[A-z0-9-\.]*$').hasMatch(value)){
